@@ -4,5 +4,5 @@ from dotenv import find_dotenv, load_dotenv
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 
-telegram_token = os.getenv('telegram_token')
-weather_token = os.getenv('weather_token')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+WEATHER_TOKEN = os.getenv('WEATHER_TOKEN')

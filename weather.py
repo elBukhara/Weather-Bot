@@ -1,10 +1,9 @@
 import pyowm
 import math
-from config import weather_token
+from config import WEATHER_TOKEN
 
-owm = pyowm.OWM(weather_token)
+owm = pyowm.OWM(WEATHER_TOKEN)
 mgr = owm.weather_manager()
-# observation = mgr.weather_at_place('Buxoro')
 
 def return_data(city):
     try:
