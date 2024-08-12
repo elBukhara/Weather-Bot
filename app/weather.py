@@ -1,11 +1,17 @@
+import os
 import pyowm
 import math
-from config import WEATHER_TOKEN
+from dotenv import find_dotenv, load_dotenv
 
-owm = pyowm.OWM(WEATHER_TOKEN)
-mgr = owm.weather_manager()
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+WEATHER_TOKEN = os.getenv('WEATHER_TOKEN')
 
 def return_data(city):
+    owm = pyowm.OWM(WEATHER_TOKEN)
+    mgr = owm.weather_manager()
+    
     try:
         observation = mgr.weather_at_place(city)
         w = observation.weather
