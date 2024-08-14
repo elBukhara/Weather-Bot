@@ -9,29 +9,49 @@ router = Router()
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message):
-    await message.answer(f"Hello, {message.from_user.full_name}!",
-                         reply_markup=kb.settings)
-
-@router.message(Command('help'))
-async def get_help(message: Message):
-    await message.answer('/start - Start the bot')
+    reply = (
+        "Welcome to the Weather bot! To know the weather in your city, simply type in the city name.\n\n"
+        "Commands:\n"
+        "/start - start the bot\n"
+        "/about - get information about bot\n"
+        "/help - get help\n"
+        "/profile - view your profile"
+    )
+    await message.answer(reply)
 
 @router.message(Command('about'))
 async def get_about(message: Message):
-    await message.answer('The bot is under deveolpment, here are our social medias',
-                         reply_markup=await kb.inline_apps())
+    reply = (
+        "Introducing \"Weather 24/7\" - your ultimate Telegram bot for all your weather needs!\n"
+        "Stay informed about the latest weather conditions, forecasts, and more, right at your fingertips.\n"
+        "Get real-time updates on temperature, humidity, wind speed, and precipitation levels in your area.\n"
+        "Stay ahead of the elements with Weather 24/7!\n\n"
+        "Write the city name to get the weather information."
+    )
+    await message.answer(reply)
 
-@router.message(F.text == 'About')
-async def get_about(message: Message):
-    await message.answer('The bot is under deveolpment')
+@router.message(Command('help'))
+async def get_help(message: Message):
+    reply = (
+        "Commands:\n\n"
+        "/start - start the bot\n"
+        "/about - get information about bot\n"
+        "/help - get help\n"
+        "/profile - view your profile"
+    )
+    await message.answer(reply)
 
-@router.message(Command('home'))
-async def get_home(message: Message):
-    await message.answer('Write your city to get the weather information')
-
-@router.message(F.text == 'Home')
-async def get_home(message: Message):
-    await message.answer('Write your city to get the weather information')
+@router.message(Command('profile'))
+async def get_profile(message: Message):
+    user_name = message.from_user.full_name
+    user_id = message.from_user.id
+    reply = (
+        "Your Profile\n\n"
+        f"id: {user_id}\n"
+        f"username: {user_name}\n"
+    )
+    
+    await message.answer(reply)
 
 @router.message(F.photo)
 async def photo_handler(message: Message):
@@ -45,4 +65,3 @@ async def message_handler(message: Message):
         await message.answer(response)
     except TypeError:
         await message.answer("Nice try!")
-
