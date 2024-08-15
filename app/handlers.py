@@ -5,11 +5,14 @@ from aiogram.types import Message
 from .favourite_city_handlers import router as favourite_router
 from .main_handler import router as main_router
 
+import app.database.requests as rq
+
 router = Router()
 
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message):
+    await rq.register_user(message.from_user.id) # Add user to database
     reply = (
         "Добро пожаловать в Weather bot! Чтобы узнать погоду в вашем городе, просто введите название города.\n\n"
         "Команды:\n"
