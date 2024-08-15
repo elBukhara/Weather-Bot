@@ -19,7 +19,8 @@ async def command_start_handler(message: Message):
         "/start - запустить бота\n"
         "/about - получить информацию о боте\n"
         "/help - получить помощь\n"
-        "/profile - просмотреть свой профиль"
+        "/profile - просмотреть свой профиль\n"
+        "/favourites - просмотреть избранные города"        
     )
     await message.answer(reply)
 
@@ -41,7 +42,8 @@ async def get_help(message: Message):
         "/start - запустить бота\n"
         "/about - получить информацию о боте\n"
         "/help - получить помощь\n"
-        "/profile - просмотреть свой профиль"
+        "/profile - просмотреть свой профиль\n"
+        "/favourites - просмотреть избранные города"        
     )
     await message.answer(reply)
 
