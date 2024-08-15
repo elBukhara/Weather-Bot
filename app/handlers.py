@@ -1,11 +1,12 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, CallbackQuery
-from .weather import return_data
+from aiogram.types import Message
 
-import app.keyboards as kb
+from .favourite_city_handlers import router as favourite_router
+from .main_handler import router as main_router
 
 router = Router()
+
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message):
@@ -57,30 +58,5 @@ async def get_profile(message: Message):
 async def photo_handler(message: Message):
     await message.answer_photo(photo=f'{message.photo[-1].file_id}', caption='Хорошее фото!')
 
-
-@router.message(Command('favourites'))
-async def get_favourite_cities(message: Message):
-    reply = "Ваши избранные города:"
-    await message.answer(reply, reply_markup=kb.favourite_cities)
-
-@router.callback_query(F.data == 'back_to_favourite_cities')
-async def back_to_favourite_cities(callback: CallbackQuery):
-    reply = "Ваши избранные города:"
-    await callback.message.edit_text(reply, reply_markup=kb.favourite_cities)
-
-@router.callback_query(lambda c: c.data.startswith('settings:'))
-async def process_callback_city(callback: CallbackQuery):
-    city_name = callback.data.split(':')[1]
-    response = return_data(city_name)
-    
-    await callback.message.edit_text(response, reply_markup=kb.button_back_to_favourites)
-
-
-@router.message()
-async def message_handler(message: Message):
-    # Returns data about city from weather.py
-    try:
-        response = return_data(message.text)
-        await message.answer(response)
-    except TypeError:
-        await message.answer("Хорошая попытка!")
+router.include_router(favourite_router)
+router.include_router(main_router)

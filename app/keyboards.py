@@ -10,11 +10,11 @@ main = ReplyKeyboardMarkup(keyboard = [
 
 
 favourite_cities = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Бухара', callback_data='settings:Бухара')],
-    [InlineKeyboardButton(text='Москва', callback_data='settings:Москва')],
-    [InlineKeyboardButton(text='Мадрид', callback_data='settings:Мадрид')],
-    [InlineKeyboardButton(text='Париж', callback_data='settings:Париж')],
-    [InlineKeyboardButton(text='Видное', callback_data='settings:Видное')],
+    [InlineKeyboardButton(text='Бухара', callback_data='favourite_city:Бухара')],
+    [InlineKeyboardButton(text='Москва', callback_data='favourite_city:Москва')],
+    [InlineKeyboardButton(text='Мадрид', callback_data='favourite_city:Мадрид')],
+    [InlineKeyboardButton(text='Париж', callback_data='favourite_city:Париж')],
+    [InlineKeyboardButton(text='Видное', callback_data='favourite_city:Видное')],
 ])
 
 button_back_to_favourites = InlineKeyboardMarkup(inline_keyboard=[
