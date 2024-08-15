@@ -9,14 +9,14 @@ main = ReplyKeyboardMarkup(keyboard = [
                            input_field_placeholder='Choose an option')
 
 
-settings = InlineKeyboardMarkup(inline_keyboard = [
-    [InlineKeyboardButton(text='Settings', callback_data='settings')],    
+favourite_cities = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Бухара', callback_data='settings:Бухара')],
+    [InlineKeyboardButton(text='Москва', callback_data='settings:Москва')],
+    [InlineKeyboardButton(text='Мадрид', callback_data='settings:Мадрид')],
+    [InlineKeyboardButton(text='Париж', callback_data='settings:Париж')],
+    [InlineKeyboardButton(text='Видное', callback_data='settings:Видное')],
 ])
 
-apps = ['TikTok', 'Instagram', 'Youtube']
-
-async def inline_apps():
-    keyboard = InlineKeyboardBuilder()
-    for app in apps:
-        keyboard.add(InlineKeyboardButton(text=app, url='https://google.com'))
-    return keyboard.adjust(2).as_markup()
+button_back_to_favourites = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='<- Назад', callback_data='back_to_favourite_cities')]
+])
