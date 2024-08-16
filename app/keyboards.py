@@ -1,13 +1,5 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-favourite_cities = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Бухара', callback_data='favourite_city:Бухара')],
-    [InlineKeyboardButton(text='Москва', callback_data='favourite_city:Москва')],
-    [InlineKeyboardButton(text='Мадрид', callback_data='favourite_city:Мадрид')],
-    [InlineKeyboardButton(text='Париж', callback_data='favourite_city:Париж')],
-    [InlineKeyboardButton(text='Видное', callback_data='favourite_city:Видное')],
-])
-
 def create_favourite_cities_keyboard(cities):
     if 5 > len(cities) > 0:
         inline_keyboard = [[InlineKeyboardButton(text=city, callback_data=f'favourite_city:{city}')] for city in cities]

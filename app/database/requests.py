@@ -1,6 +1,5 @@
 from app.database.models import async_session, User, FavouriteCity
 from sqlalchemy import select, delete
-from sqlalchemy.ext.asyncio import AsyncSession
 
 async def register_user(tg_id: int):
     async with async_session() as session:
