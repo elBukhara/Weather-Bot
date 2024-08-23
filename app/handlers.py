@@ -6,6 +6,7 @@ from .favourite_city_handlers import router as favourite_router
 from .main_handler import router as main_router
 
 import app.database.requests as rq
+import app.keyboards as kb
 
 router = Router()
 
@@ -22,7 +23,7 @@ async def command_start_handler(message: Message):
         "/profile - просмотреть свой профиль\n"
         "/favourites - просмотреть избранные города"        
     )
-    await message.answer(reply)
+    await message.answer(reply, reply_markup=kb.main)
 
 @router.message(Command('about'))
 async def get_about(message: Message):
@@ -63,5 +64,30 @@ async def get_profile(message: Message):
 async def photo_handler(message: Message):
     await message.answer_photo(photo=f'{message.photo[-1].file_id}', caption='Хорошее фото!')
 
+# Buttons handlers
+@router.message(F.text == 'Команды')
+async def button_commands_handler(message: Message):
+    reply = (
+        "Команды:\n\n"
+        "/start - запустить бота\n"
+        "/about - получить информацию о боте\n"
+        "/help - получить помощь\n"
+        "/profile - просмотреть свой профиль\n"
+        "/favourites - просмотреть избранные города"        
+    )
+    await message.answer(reply)
+
+@router.message(F.text == 'Профиль')
+async def button_profile_handler(message: Message):
+    user_name = message.from_user.full_name
+    user_id = message.from_user.id
+    reply = (
+        "Ваш профиль\n\n"
+        f"ID: {user_id}\n"
+        f"Имя: {user_name}\n"
+    )
+    await message.answer(reply)
+
+# Include routers
 router.include_router(favourite_router)
 router.include_router(main_router)

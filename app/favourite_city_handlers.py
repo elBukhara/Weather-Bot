@@ -23,6 +23,11 @@ router = Router()
 class AddCity(StatesGroup):
     city = State()
 
+# Button Handler
+@router.message(F.text == 'Избранные города')
+async def get_favourite_cities_handler(message: Message):
+    await send_favourite_cities(message.from_user.id, message)
+
 @router.message(Command('favourites'))
 async def get_favourite_cities_handler(message: Message):
     await send_favourite_cities(message.from_user.id, message)
@@ -108,15 +113,15 @@ async def send_favourite_cities(user_id, event):
 
     if not cities:
         if isinstance(event, Message):
-            await event.reply("У вас нет избранных городов.", reply_markup=kb.button_add_favourite_city)
+            await event.reply("Здесь вы можете просматривать погоду ваших избранных городов🌆.\n\nУ вас нет избранных городов.", reply_markup=kb.button_add_favourite_city)
         elif isinstance(event, CallbackQuery):
-            await event.message.edit_text("У вас нет избранных городов.", reply_markup=kb.button_add_favourite_city)
+            await event.message.edit_text("Здесь вы можете просматривать погоду ваших избранных городов🌆.\n\nУ вас нет избранных городов.", reply_markup=kb.button_add_favourite_city)
         return
 
     # Create keyboard dynamically
     keyboard = kb.create_favourite_cities_keyboard(cities)
     
     if isinstance(event, Message):
-        await event.reply("Ваши избранные города:", reply_markup=keyboard)
+        await event.reply("Здесь вы можете просматривать погоду ваших избранных городов🌆.\n\nВаши избранные города:", reply_markup=keyboard)
     elif isinstance(event, CallbackQuery):
-        await event.message.edit_text("Ваши избранные города:", reply_markup=keyboard)
+        await event.message.edit_text("Здесь вы можете просматривать погоду ваших избранных городов🌆.\n\nВаши избранные города:", reply_markup=keyboard)
