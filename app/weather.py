@@ -20,21 +20,45 @@ class WeatherBot:
             'temperature': weather.temperature('celsius'),
             'rain': weather.rain,
             'heat_index': weather.heat_index,
-            'clouds': weather.clouds
+            'clouds': weather.clouds,
+            'visibility': weather.visibility,
+            # 'sunrise': weather.sunrise_time(timeformat='iso'),
+            # 'sunset': weather.sunset_time(timeformat='iso')
         }
+        current_status_icon = self.get_icon_of_the_weather(data['status'])
         
         response = (
-            f"Город: {data['city']}\n"
-            f"Текущий статус: {data['status']}\n"
-            f"Температура: {math.ceil(data['temperature']['temp'])} ℃\n"
-            f"Скорость ветра: {math.ceil(data['wind'])} метр/в секунду\n"
-            f"Влажность: {data['humidity']}%\n"
-            f"Макс. Температура: {math.ceil(data['temperature']['temp_max'])} ℃\n"
-            f"Мин. Температура: {math.ceil(data['temperature']['temp_min'])} ℃\n"
-            f"Ощущается как: {math.ceil(data['temperature']['feels_like'])} ℃\n"
+            f"📍 Город: {data['city'].capitalize()}\n\n"
+            f"{current_status_icon} Текущий статус: {data['status']}\n"
+            f"🌡️ Температура: {math.ceil(data['temperature']['temp'])} ℃\n"
+            f"💨 Скорость ветра: {math.ceil(data['wind'])} метр/в секунду\n"
+            f"☁️ Облачность: {data['clouds']}%\n"
+            f"💧 Влажность: {data['humidity']}%\n\n"
+            
+            f"🔼 Макс. Температура: {math.ceil(data['temperature']['temp_max'])} ℃\n"
+            f"🔽 Мин. Температура: {math.ceil(data['temperature']['temp_min'])} ℃\n"
+            f"💬 Ощущается как: {math.ceil(data['temperature']['feels_like'])} ℃\n\n"
+            
+            # f"🌅 Восход: {data['sunrise']}\n"
+            # f"🌇 Закат: {data['sunset']}\n"
         )
 
         return response
+    
+    def get_icon_of_the_weather(self, status):
+        status_icons = {
+            'ясно': '☀️',
+            'солнечно': '☀️',
+            'облачно': '☁️',
+            'дождь': '🌧️',
+            'снег': '❄️',
+            'гроза': '⛈️',
+            'туман': '🌫️',
+            'пасмурно': '🌥️',
+            # Add more mappings as needed
+        }
+        
+        return status_icons.get(status, '🌤️')
     
     def get_weather(self, city):
         try:
