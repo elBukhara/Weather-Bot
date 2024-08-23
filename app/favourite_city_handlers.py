@@ -1,13 +1,22 @@
+import os
+from dotenv import find_dotenv, load_dotenv
+
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
+import app.keyboards as kb
 
 from app.database.requests import add_favourite_city_to_db, remove_favourite_city_from_db, get_favourite_cities
-from .weather import return_data
+from .weather import WeatherBot
 
-import app.keyboards as kb
+
+dotenv_path = find_dotenv()
+load_dotenv(dotenv_path)
+
+WEATHER_TOKEN = os.getenv('WEATHER_TOKEN')
+weather_bot = WeatherBot(api_key=WEATHER_TOKEN)
 
 router = Router()
 
@@ -30,7 +39,7 @@ async def back_to_favourite_cities(callback: CallbackQuery):
 @router.callback_query(lambda c: c.data.startswith('favourite_city:'))
 async def weather_about_favourite_city(callback: CallbackQuery):
     city_name = callback.data.split(':')[1]
-    response = return_data(city_name)  # gives weather information about the city
+    response = weather_bot.get_weather(city_name)  # gives weather information about the city
 
     await callback.message.edit_text(response, reply_markup=kb.button_back_to_favourites)
 
