@@ -1,5 +1,5 @@
 import os
-from dotenv import find_dotenv, load_dotenv
+from dotenv import load_dotenv
 
 from aiogram import F, Router
 from aiogram.filters import Command
@@ -12,11 +12,8 @@ from app.database.requests import add_favourite_city_to_db, remove_favourite_cit
 from .weather import WeatherBot
 
 
-dotenv_path = find_dotenv()
-load_dotenv(dotenv_path)
-
-WEATHER_TOKEN = os.getenv('WEATHER_TOKEN')
-weather_bot = WeatherBot(api_key=WEATHER_TOKEN)
+load_dotenv()
+weather_bot = WeatherBot(api_key=os.getenv('WEATHER_TOKEN'))
 
 router = Router()
 
