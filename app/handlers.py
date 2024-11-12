@@ -2,8 +2,8 @@ from aiogram import F, Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
-from .favourite_city_handlers import router as favourite_router
-from .main_handler import router as main_router
+from app.favourite_cities.handler import router as favourite_router
+from app.weather.main_handler import router as main_router
 
 import app.database.requests as rq
 import app.keyboards as kb

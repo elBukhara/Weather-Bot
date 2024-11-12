@@ -9,7 +9,7 @@ from aiogram.fsm.context import FSMContext
 import app.keyboards as kb
 
 from app.database.requests import add_favourite_city_to_db, remove_favourite_city_from_db, get_favourite_cities
-from .weather import WeatherBot
+from app.weather.weather import WeatherBot
 
 
 load_dotenv()
