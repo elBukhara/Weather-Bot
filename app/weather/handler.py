@@ -14,7 +14,10 @@ router = Router()
 
 @router.message()
 async def message_handler(message: Message):
-    # Returns data about city from weather.py
+    """
+    This is the main handler, which accepts every kind of messages (except Commands, Callbacks)
+    It returns with the weather data of given city/town/region/area
+    """
     try:
         response = weather_bot.get_weather(message.text)
         await message.answer(response)

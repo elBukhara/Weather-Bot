@@ -1,12 +1,13 @@
 import os
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
-import app.keyboards as kb
+
+import app.favourite_cities.keyboards as kb 
 
 from app.database.requests import add_favourite_city_to_db, remove_favourite_city_from_db, get_favourite_cities
 from app.weather.weather import WeatherBot
